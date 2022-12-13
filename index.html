@@ -1,1 +1,37 @@
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+</style>
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Chat Online</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles.css">
+    </head>
+	<body>
+		<p id="authenticating">Authenticating  .  .  .</p>
+		<section class="login" id="login-page">
+			<form action="reload" class="login-form" autocomplete="off" onsubmit="return Login()" id="login">
+				<input type="text" id="username" class="input login-input-1" placeholder="Username" autocomplete="off">
+				<input type="password" id="password" class="input login-input-2" placeholder="Password" autocomplete="off">
+				<div class="button-wrapper">
+					<button class="login-button" type="submit">Login</button>
+					<button class="login-button sign-up-button" type="button" id="sign-up">Sign Up</button>
+				</div>
+			</form>
+		</section>
 
+		<section class="messages" id="messages">
+
+		</section>
+
+		<form action="reload" class="send-message" autocomplete="off" onsubmit="return SendMessage()" id="send-message">
+			<input type="text" id="input" class="input">
+			<button class="send-button" type="submit">Send</button>
+		</form>
+		
+		<script src="app.js" async defer></script>
+	</body>
+</html>
