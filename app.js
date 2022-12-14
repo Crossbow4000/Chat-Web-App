@@ -20,7 +20,7 @@ function Login() {
     .then(json => {
         for (i in json.username) {
             if (json.username[i] == document.getElementById('username').value) {
-                if (json.password[i] == document.getElementById('password').value) {
+                if (json.password[i] == document.getElementById('password').value.hashCode()) {
                     document.getElementById('authenticating').style.display = 'none'
                     username = document.getElementById('username').value
                     localStorage.setItem('username', username)
@@ -60,7 +60,7 @@ document.getElementById('sign-up').addEventListener('click', () => {
             return false
         } else {
             document.getElementById('authenticating').style.display = 'none'
-            signUpUrl = requestUrl + 'WRITEUSER&username=' + document.getElementById('username').value + '&password=' + document.getElementById('password').value
+            signUpUrl = requestUrl + 'WRITEUSER&username=' + document.getElementById('username').value + '&password=' + document.getElementById('password').value.hashCode().toString()
             fetch(signUpUrl)
         }
     })
@@ -100,6 +100,18 @@ function DeleteDOMElements() {
     delete messageContent
     delete divider
     delete bottom
+}
+
+String.prototype.hashCode = function() {
+  var hash = 0,
+    i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr = this.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0;
+  }
+  return hash;
 }
 
 function UpdateThings() {
