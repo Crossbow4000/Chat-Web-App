@@ -2,6 +2,14 @@ userDataUrl = 'https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX
 requestUrl  = 'https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX8_hpVJ27w_4SccZdv7sC66KeHEy4ycg91BmdYmxPbgLQ/exec?request='
 
 let loggedIn = false
+let hasScrolled = false
+
+if (localStorage.getItem('username') != null) {
+    document.getElementById('username').value = localStorage.getItem('username')
+}
+if (localStorage.getItem('password') != null) {
+    document.getElementById('password').value = localStorage.getItem('password')
+}
 
 document.getElementById('authenticating').style.display = 'none'
 
@@ -15,6 +23,8 @@ function Login() {
                 if (json.password[i] == document.getElementById('password').value) {
                     document.getElementById('authenticating').style.display = 'none'
                     username = document.getElementById('username').value
+                    localStorage.setItem('username', username)
+                    localStorage.setItem('password', document.getElementById('password').value)
                     userid = json.userId[i]
                     document.getElementById('login-page').style.transform = 'translateY(-100%)'
                     loggedIn = true
@@ -93,6 +103,7 @@ function DeleteDOMElements() {
 }
 
 function UpdateThings() {
+
     childLength = document.getElementById('messages').children
     fetch('https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX8_hpVJ27w_4SccZdv7sC66KeHEy4ycg91BmdYmxPbgLQ/exec?request=CHATDATA')
     .then(response => response.json())
@@ -118,10 +129,15 @@ function UpdateThings() {
         CreateDOMElements()
         document.getElementById('messages').appendChild(bottom)
         DeleteDOMElements()
+        if (hasScrolled == false) {
+            document.body.scrollTop = document.body.scrollHeight
+            hasScrolled = true
+        }
     })
     if (childLength != document.getElementById('messages').children) {
         document.body.scrollTop = document.body.scrollHeight
     }
+
 }
 
 UpdateThings()
