@@ -23,6 +23,11 @@ button {
     color: rgb(127, 127, 127);
 }
 
+.username-gray {
+    font-size: 15px;
+    color: rgb(60, 60, 60);
+}
+
 .user {
     color: rgb(51, 153, 255);
 }
@@ -32,6 +37,13 @@ button {
     margin-top: 5px;
     margin-bottom: 20px;
     color: rgb(200, 200, 200);
+}
+
+.content-gray {
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color: rgb(133, 133, 133);
 }
 
 .divider {

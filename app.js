@@ -82,9 +82,21 @@ function SendMessage() {
         return false
     } else {
         sendMessageUrl = requestUrl + 'WRITECHAT&username=' + username + '&userid=' + userid + '&content=' + document.getElementById('input').value
+        document.getElementById('messages').lastChild.remove()
+        CreateDOMElementsGrayed()
+        node = document.createTextNode(username)
+        messageUsername.appendChild(node)
+        messageContainer.appendChild(messageUsername)
+        node = document.createTextNode(document.getElementById('input').value)
+        messageContent.appendChild(node)
+        messageContainer.appendChild(messageContent)
+        document.getElementById('messages').appendChild(messageContainer)
+        document.getElementById('messages').appendChild(divider)
+        document.getElementById('messages').appendChild(bottom)
         document.getElementById('input').value = ''
         document.body.scrollTop = document.body.scrollHeight
         fetch(sendMessageUrl)
+        DeleteDOMElements()
         return false
     }
 }
@@ -97,6 +109,19 @@ function CreateDOMElements() {
     messageUsername.classList.add('user')
     messageContent = document.createElement('p')
     messageContent.classList.add('content')
+    divider = document.createElement('div')
+    divider.classList.add('divider')
+    bottom = document.createElement('div')
+    bottom.classList.add('bottom')
+}
+
+function CreateDOMElementsGrayed() {
+    messageContainer = document.createElement('div')
+    messageContainer.classList.add('message')
+    messageUsername = document.createElement('h1')
+    messageUsername.classList.add('username-gray')
+    messageContent = document.createElement('p')
+    messageContent.classList.add('content-gray')
     divider = document.createElement('div')
     divider.classList.add('divider')
     bottom = document.createElement('div')
@@ -132,7 +157,6 @@ String.prototype.hashCode = function() {
 }
 
 function UpdateThings() {
-
     childLength = document.getElementById('messages').children
     fetch('https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX8_hpVJ27w_4SccZdv7sC66KeHEy4ycg91BmdYmxPbgLQ/exec?request=CHATDATA')
     .then(response => response.json())
@@ -141,19 +165,21 @@ function UpdateThings() {
             document.getElementById('messages').lastChild.remove()
         }
         for (let i in json.content) {
-            CreateDOMElements()
-            if (userid != json.userId[i]) {
-                messageUsername.classList.remove('user')
+            if (json.content[i] != '' && json.userId[i] != '' && json.username[i] != '') {
+                CreateDOMElements()
+                if (userid != json.userId[i]) {
+                    messageUsername.classList.remove('user')
+                }
+                node = document.createTextNode(json.username[i])
+                messageUsername.appendChild(node)
+                messageContainer.appendChild(messageUsername)
+                node = document.createTextNode(json.content[i])
+                messageContent.appendChild(node)
+                messageContainer.appendChild(messageContent)
+                document.getElementById('messages').appendChild(messageContainer)
+                document.getElementById('messages').appendChild(divider)
+                DeleteDOMElements()
             }
-            node = document.createTextNode(json.username[i])
-            messageUsername.appendChild(node)
-            messageContainer.appendChild(messageUsername)
-            node = document.createTextNode(json.content[i])
-            messageContent.appendChild(node)
-            messageContainer.appendChild(messageContent)
-            document.getElementById('messages').appendChild(messageContainer)
-            document.getElementById('messages').appendChild(divider)
-            DeleteDOMElements()
         }
         CreateDOMElements()
         document.getElementById('messages').appendChild(bottom)
@@ -166,7 +192,6 @@ function UpdateThings() {
     if (childLength != document.getElementById('messages').children) {
         document.body.scrollTop = document.body.scrollHeight
     }
-
 }
 
 UpdateThings()
