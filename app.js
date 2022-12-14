@@ -58,22 +58,9 @@ document.getElementById('sign-up').addEventListener('click', () => {
 
 function SendMessage() {
     sendMessageUrl = requestUrl + 'WRITECHAT&username=' + username + '&userid=' + userid + '&content=' + document.getElementById('input').value
+    document.getElementById('input').value = ''
+    document.body.scrollTop = document.body.scrollHeight
     fetch(sendMessageUrl)
-    if (document.getElementById('input').value != '') {
-        document.getElementById('messages').lastChild.remove()
-        CreateDOMElements()
-        node = document.createTextNode(username)
-        messageUsername.appendChild(node)
-        messageContainer.appendChild(messageUsername)
-        node = document.createTextNode(document.getElementById('input').value)
-        messageContent.appendChild(node)
-        messageContainer.appendChild(messageContent)
-        document.getElementById('messages').appendChild(messageContainer)
-        document.getElementById('messages').appendChild(divider)
-        document.getElementById('messages').appendChild(bottom)
-        DeleteDOMElements()
-        document.getElementById('input').value = ''
-    }
     return false
 }
 
@@ -99,4 +86,32 @@ function DeleteDOMElements() {
     delete bottom
 }
 
+function UpdateThings() {
+    fetch('https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX8_hpVJ27w_4SccZdv7sC66KeHEy4ycg91BmdYmxPbgLQ/exec?request=CHATDATA')
+    .then(response => response.json())
+    .then(json => {
+        while (document.getElementById('messages').lastChild) {
+            document.getElementById('messages').lastChild.remove()
+        }
+        for (let i in json.content) {
+            CreateDOMElements()
+            node = document.createTextNode(json.username[i])
+            messageUsername.appendChild(node)
+            messageContainer.appendChild(messageUsername)
+            node = document.createTextNode(json.content[i])
+            messageContent.appendChild(node)
+            messageContainer.appendChild(messageContent)
+            document.getElementById('messages').appendChild(messageContainer)
+            document.getElementById('messages').appendChild(divider)
+            DeleteDOMElements()
+        }
+        CreateDOMElements()
+        document.getElementById('messages').appendChild(bottom)
+        DeleteDOMElements()
+    })
+}
+
+UpdateThings()
+
+setInterval(UpdateThings, 1000)
 
