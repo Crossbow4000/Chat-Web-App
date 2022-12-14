@@ -23,9 +23,9 @@ function Login() {
                 if (json.password[i] == document.getElementById('password').value.hashCode()) {
                     document.getElementById('authenticating').style.display = 'none'
                     username = document.getElementById('username').value
+                    userid = json.userId[i]
                     localStorage.setItem('username', username)
                     localStorage.setItem('password', document.getElementById('password').value)
-                    userid = json.userId[i]
                     document.getElementById('login-page').style.transform = 'translateY(-100%)'
                     loggedIn = true
                     return false
@@ -102,16 +102,24 @@ function DeleteDOMElements() {
     delete bottom
 }
 
+
+
 String.prototype.hashCode = function() {
-  var hash = 0,
-    i, chr;
-  if (this.length === 0) return hash;
-  for (i = 0; i < this.length; i++) {
-    chr = this.charCodeAt(i);
-    hash = ((hash << 5) - hash) + chr;
-    hash |= 0;
-  }
-  return hash;
+    hashCode = 19981479
+    sub = false
+    hash = 0
+    if (this.length == 0) return hash
+    for (n = 0; n < this.length; n++) {
+        chr = this.charCodeAt(n)
+        if (sub == false) {
+            sub = true
+            hash += hashCode + chr
+        } else {
+            sub = false
+            hash += hashCode - chr
+        }
+    }
+    return hash
 }
 
 function UpdateThings() {
