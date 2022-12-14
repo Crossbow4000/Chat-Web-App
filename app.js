@@ -87,9 +87,11 @@ function DeleteDOMElements() {
 }
 
 function UpdateThings() {
+    lastChild = document.getElementById('messages').lastChild
     fetch('https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX8_hpVJ27w_4SccZdv7sC66KeHEy4ycg91BmdYmxPbgLQ/exec?request=CHATDATA')
     .then(response => response.json())
     .then(json => {
+        childLength = document.getElementById('messages').children.length
         while (document.getElementById('messages').lastChild) {
             document.getElementById('messages').lastChild.remove()
         }
@@ -108,6 +110,10 @@ function UpdateThings() {
         CreateDOMElements()
         document.getElementById('messages').appendChild(bottom)
         DeleteDOMElements()
+
+        if ( childLength !=  document.getElementById('messages').children.length) {
+            document.body.scrollTop = document.body.scrollHeight
+        }
     })
 }
 
