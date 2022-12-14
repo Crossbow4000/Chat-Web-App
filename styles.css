@@ -56,11 +56,12 @@ button {
 .input {
     outline: none;
     border: none;
-    width: 80%;
+    width: 70%;
     height: 40px;
     background: rgb(30, 30, 30);
     color: rgb(200, 200, 200);
     padding: 20px;
+    border-radius: 0.2em;
 }
 
 .send-button {
@@ -70,14 +71,14 @@ button {
     color: rgb(200, 200, 200);
     transition: 200ms ease-in-out;
     padding-inline: 15px;
+    border-radius: 0.2em;
 }
 .send-button:hover { background: rgb(51, 153, 255); color: white; }
 
 .login {
     display: grid;
-    position: fixed;
     align-items: center;
-    padding-inline: 30px;
+    position: fixed;
     top: 0;
     z-index: 10;
     width: 100%;
@@ -86,7 +87,8 @@ button {
 }
 
 .login-form {
-    display: grid;
+    gap: 30px;
+    flex-wrap: wrap;
     justify-content: center;
     row-gap: 10px;
     width: 100%;
@@ -97,12 +99,18 @@ button {
 }
 
 .login-input-1, .login-input-2 {
-    width: 100%;
+    margin-inline: 25%;
+    margin-bottom: 20px;
+    width: 50%;
+    border-radius: 0.2em;
 }
 
 .button-wrapper {
     display: flex;
     gap: 26px;
+    margin-inline: 25%;
+    width: 50%;
+    justify-content: center;
 }
 
 .login-button {
@@ -114,12 +122,13 @@ button {
     transition: 200ms ease-in-out;
     height: 40px;
     width: 75px;
-
+    border-radius: 0.2em;
 }
 .login-button:hover { background: rgb(51, 153, 255); color: white; }
 
 .sign-up-button {
     width: 85px;
+    border-radius: 0.2em;
 }
 
 #authenticating {

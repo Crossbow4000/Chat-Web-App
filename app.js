@@ -98,3 +98,5 @@ function DeleteDOMElements() {
     delete divider
     delete bottom
 }
+
+
