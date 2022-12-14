@@ -51,6 +51,7 @@ document.getElementById('sign-up').addEventListener('click', () => {
         alert('Password cannot be blank')
         return false
     }
+
     fetch(userDataUrl)
     .then(response => response.json())
     .then(json => {
@@ -59,9 +60,17 @@ document.getElementById('sign-up').addEventListener('click', () => {
             alert('Username already taken')
             return false
         } else {
-            document.getElementById('authenticating').style.display = 'none'
             signUpUrl = requestUrl + 'WRITEUSER&username=' + document.getElementById('username').value + '&password=' + document.getElementById('password').value.hashCode().toString()
             fetch(signUpUrl)
+            .then(response => response.json)
+            .then(json => {
+                fetch(userDataUrl)
+                .then(response => response.json)
+                .then(json => {
+                    Login()
+                })
+            })
+
         }
     })
 })
