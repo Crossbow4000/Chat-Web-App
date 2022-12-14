@@ -46,7 +46,7 @@ button {
     width: 100%;
     position: fixed;
     bottom: 0;
-    padding-block: 50px;
+    padding-block: 20px;
     background: rgb(25, 25, 25);
 }
 

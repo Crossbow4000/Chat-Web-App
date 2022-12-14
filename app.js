@@ -57,11 +57,17 @@ document.getElementById('sign-up').addEventListener('click', () => {
 })
 
 function SendMessage() {
-    sendMessageUrl = requestUrl + 'WRITECHAT&username=' + username + '&userid=' + userid + '&content=' + document.getElementById('input').value
-    document.getElementById('input').value = ''
-    document.body.scrollTop = document.body.scrollHeight
-    fetch(sendMessageUrl)
-    return false
+    if (document.getElementById('input').value == '') {
+        document.getElementById('input').value = ''
+        alert('Message cannot be blank')
+        return false
+    } else {
+        sendMessageUrl = requestUrl + 'WRITECHAT&username=' + username + '&userid=' + userid + '&content=' + document.getElementById('input').value
+        document.getElementById('input').value = ''
+        document.body.scrollTop = document.body.scrollHeight
+        fetch(sendMessageUrl)
+        return false
+    }
 }
 
 function CreateDOMElements() {
@@ -87,11 +93,10 @@ function DeleteDOMElements() {
 }
 
 function UpdateThings() {
-    lastChild = document.getElementById('messages').lastChild
+    childLength = document.getElementById('messages').children
     fetch('https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX8_hpVJ27w_4SccZdv7sC66KeHEy4ycg91BmdYmxPbgLQ/exec?request=CHATDATA')
     .then(response => response.json())
     .then(json => {
-        childLength = document.getElementById('messages').children.length
         while (document.getElementById('messages').lastChild) {
             document.getElementById('messages').lastChild.remove()
         }
@@ -110,11 +115,10 @@ function UpdateThings() {
         CreateDOMElements()
         document.getElementById('messages').appendChild(bottom)
         DeleteDOMElements()
-
-        if ( childLength !=  document.getElementById('messages').children.length) {
-            document.body.scrollTop = document.body.scrollHeight
-        }
     })
+    if (childLength != document.getElementById('messages').children) {
+        document.body.scrollTop = document.body.scrollHeight
+    }
 }
 
 UpdateThings()
