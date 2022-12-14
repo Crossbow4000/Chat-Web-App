@@ -16,7 +16,7 @@ function Login() {
                     document.getElementById('authenticating').style.display = 'none'
                     username = document.getElementById('username').value
                     userid = json.userId[i]
-                    document.getElementById('login-page').style.display = 'none'
+                    document.getElementById('login-page').style.transform = 'translateY(-100%)'
                     loggedIn = true
                     return false
                 }
