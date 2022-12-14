@@ -102,6 +102,9 @@ function UpdateThings() {
         }
         for (let i in json.content) {
             CreateDOMElements()
+            if (userid != json.userId[i]) {
+                messageUsername.classList.remove('user')
+            }
             node = document.createTextNode(json.username[i])
             messageUsername.appendChild(node)
             messageContainer.appendChild(messageUsername)
