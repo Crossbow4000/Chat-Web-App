@@ -1,5 +1,5 @@
-userDataUrl = 'https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX8_hpVJ27w_4SccZdv7sC66KeHEy4ycg91BmdYmxPbgLQ/exec?request=USERDATA'
-requestUrl  = 'https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX8_hpVJ27w_4SccZdv7sC66KeHEy4ycg91BmdYmxPbgLQ/exec?request='
+userDataUrl = 'https://script.google.com/macros/s/AKfycbzrxlBcEuV7zu4ZjhrUsH3-wnoJi8_FMtjSM3KaVtYu7evAAUU7etAk7krCNJFabEyqYw/exec?request=USERDATA'
+requestUrl  = 'https://script.google.com/macros/s/AKfycbzrxlBcEuV7zu4ZjhrUsH3-wnoJi8_FMtjSM3KaVtYu7evAAUU7etAk7krCNJFabEyqYw/exec?request='
 
 let loggedIn = false
 let hasScrolled = false
@@ -82,21 +82,19 @@ function SendMessage() {
         return false
     } else {
         sendMessageUrl = requestUrl + 'WRITECHAT&username=' + username + '&userid=' + userid + '&content=' + document.getElementById('input').value
-        document.getElementById('messages').lastChild.remove()
-        CreateDOMElementsGrayed()
-        node = document.createTextNode(username)
-        messageUsername.appendChild(node)
-        messageContainer.appendChild(messageUsername)
-        node = document.createTextNode(document.getElementById('input').value)
-        messageContent.appendChild(node)
-        messageContainer.appendChild(messageContent)
-        document.getElementById('messages').appendChild(messageContainer)
-        document.getElementById('messages').appendChild(divider)
-        document.getElementById('messages').appendChild(bottom)
+//        CreateDOMElementsGrayed()
+//        node = document.createTextNode(username)
+//        messageUsername.appendChild(node)
+//        messageContainer.appendChild(messageUsername)
+//        node = document.createTextNode(document.getElementById('input').value)
+//        messageContent.appendChild(node)
+//        messageContainer.appendChild(messageContent)
+//        document.getElementById('sent-messages').appendChild(messageContainer)
+//        document.getElementById('sent-messages').appendChild(divider)
         document.getElementById('input').value = ''
-        document.body.scrollTop = document.body.scrollHeight
+//        document.body.scrollTop = document.body.scrollHeight
+//        DeleteDOMElements()
         fetch(sendMessageUrl)
-        DeleteDOMElements()
         return false
     }
 }
@@ -112,7 +110,6 @@ function CreateDOMElements() {
     divider = document.createElement('div')
     divider.classList.add('divider')
     bottom = document.createElement('div')
-    bottom.classList.add('bottom')
 }
 
 function CreateDOMElementsGrayed() {
@@ -125,7 +122,6 @@ function CreateDOMElementsGrayed() {
     divider = document.createElement('div')
     divider.classList.add('divider')
     bottom = document.createElement('div')
-    bottom.classList.add('bottom')
 }
 
 function DeleteDOMElements() {
@@ -166,6 +162,16 @@ function UpdateThings() {
         }
         for (let i in json.content) {
             if (json.content[i] != '' && json.userId[i] != '' && json.username[i] != '') {
+//                for (b in document.getElementById('sent-messages').children) {
+//                    object = document.getElementById('sent-messages')
+//                    list = []
+//                    if (object.children.length > 0) {
+//                        if (object.children[b].children[0].textContent == json.username[i] && object.children[b].children[1].textContent == json.content[i]) {
+//                            list.push(object.children[b])
+//                        }
+//                    }
+//                }
+
                 CreateDOMElements()
                 if (userid != json.userId[i]) {
                     messageUsername.classList.remove('user')
@@ -181,9 +187,6 @@ function UpdateThings() {
                 DeleteDOMElements()
             }
         }
-        CreateDOMElements()
-        document.getElementById('messages').appendChild(bottom)
-        DeleteDOMElements()
         if (hasScrolled == false) {
             document.body.scrollTop = document.body.scrollHeight
             hasScrolled = true
@@ -195,6 +198,7 @@ function UpdateThings() {
 }
 
 UpdateThings()
+UpdateThings()
 
-setInterval(UpdateThings, 1000)
+setInterval(UpdateThings, 100)
 
