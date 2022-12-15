@@ -23,11 +23,15 @@ button {
 .username {
     font-size: 15px;
     color: rgb(127, 127, 127);
+    overflow-wrap: wrap;
+    word-wrap: break-word;
 }
 
 .username-gray {
     font-size: 15px;
     color: rgb(60, 60, 60);
+    overflow-wrap: wrap;
+    word-wrap: break-word;
 }
 
 .user {
@@ -39,6 +43,8 @@ button {
     margin-top: 5px;
     margin-bottom: 20px;
     color: rgb(200, 200, 200);
+    overflow-wrap: wrap;
+    word-wrap: break-word;
 }
 
 .content-gray {
@@ -46,6 +52,8 @@ button {
     margin-top: 5px;
     margin-bottom: 20px;
     color: rgb(133, 133, 133);
+    overflow-wrap: wrap;
+    word-wrap: break-word;
 }
 
 .divider {
