@@ -227,6 +227,7 @@ function UpdateThings() {
                 editing = true
                 localStorage.setItem('messageid', event.target.parentNode.children[3].textContent)
                 document.getElementById('input').value = event.target.parentNode.children[2].textContent
+                document.getElementById('input').focus()
                 document.getElementById('send-button').style.display = 'none'
                 document.getElementById('edit-button').style.display = 'block'
                 document.getElementById('edit-button').addEventListener('click', () => {
