@@ -186,7 +186,6 @@ function UpdateThings() {
                 messageContent.appendChild(node)
                 messageContainer.appendChild(messageContent)
                 document.getElementById('messages').appendChild(messageContainer)
-                document.getElementById('messages').appendChild(divider)
                 DeleteDOMElements()
             }
         }
