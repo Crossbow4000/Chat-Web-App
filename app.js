@@ -161,6 +161,20 @@ function UpdateThings() {
         }
         for (let i in json.content) {
             if (json.content[i] != '' && json.userId[i] != '' && json.username[i] != '') {
+
+                CreateDOMElements()
+                if (userid != json.userId[i]) {
+                    messageUsername.classList.remove('user')
+                }
+                node = document.createTextNode(json.username[i])
+                messageUsername.appendChild(node)
+                messageContainer.appendChild(messageUsername)
+                node = document.createTextNode(json.content[i])
+                messageContent.appendChild(node)
+                messageContainer.appendChild(messageContent)
+                document.getElementById('messages').appendChild(messageContainer)
+                DeleteDOMElements()
+
                 for (b in document.getElementById('sent-messages').children) {
                     object = document.getElementById('sent-messages')
                     list = []
@@ -175,18 +189,6 @@ function UpdateThings() {
                     }
                 }
 
-                CreateDOMElements()
-                if (userid != json.userId[i]) {
-                    messageUsername.classList.remove('user')
-                }
-                node = document.createTextNode(json.username[i])
-                messageUsername.appendChild(node)
-                messageContainer.appendChild(messageUsername)
-                node = document.createTextNode(json.content[i])
-                messageContent.appendChild(node)
-                messageContainer.appendChild(messageContent)
-                document.getElementById('messages').appendChild(messageContainer)
-                DeleteDOMElements()
             }
         }
         if (hasScrolled == false) {
