@@ -82,18 +82,17 @@ function SendMessage() {
         return false
     } else {
         sendMessageUrl = requestUrl + 'WRITECHAT&username=' + username + '&userid=' + userid + '&content=' + document.getElementById('input').value
-//        CreateDOMElementsGrayed()
-//        node = document.createTextNode(username)
-//        messageUsername.appendChild(node)
-//        messageContainer.appendChild(messageUsername)
-//        node = document.createTextNode(document.getElementById('input').value)
-//        messageContent.appendChild(node)
-//        messageContainer.appendChild(messageContent)
-//        document.getElementById('sent-messages').appendChild(messageContainer)
-//        document.getElementById('sent-messages').appendChild(divider)
+        CreateDOMElementsGrayed()
+        node = document.createTextNode(username)
+        messageUsername.appendChild(node)
+        messageContainer.appendChild(messageUsername)
+        node = document.createTextNode(document.getElementById('input').value)
+        messageContent.appendChild(node)
+        messageContainer.appendChild(messageContent)
+        document.getElementById('sent-messages').appendChild(messageContainer)
         document.getElementById('input').value = ''
-//        document.body.scrollTop = document.body.scrollHeight
-//        DeleteDOMElements()
+        document.body.scrollTop = document.body.scrollHeight
+        DeleteDOMElements()
         fetch(sendMessageUrl)
         return false
     }
@@ -162,15 +161,19 @@ function UpdateThings() {
         }
         for (let i in json.content) {
             if (json.content[i] != '' && json.userId[i] != '' && json.username[i] != '') {
-//                for (b in document.getElementById('sent-messages').children) {
-//                    object = document.getElementById('sent-messages')
-//                    list = []
-//                    if (object.children.length > 0) {
-//                        if (object.children[b].children[0].textContent == json.username[i] && object.children[b].children[1].textContent == json.content[i]) {
-//                            list.push(object.children[b])
-//                        }
-//                    }
-//                }
+                for (b in document.getElementById('sent-messages').children) {
+                    object = document.getElementById('sent-messages')
+                    list = []
+                    try {
+                        if (object.children.length > 0) {
+                            if (object.children[b].children[0].textContent == json.username[i] && object.children[b].children[1].textContent == json.content[i]) {
+                                object.children[b].remove()
+                            }
+                        }
+                    } catch {
+                        continue
+                    }
+                }
 
                 CreateDOMElements()
                 if (userid != json.userId[i]) {
