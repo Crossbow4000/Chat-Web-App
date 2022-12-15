@@ -1,8 +1,15 @@
-userDataUrl = 'https://script.google.com/macros/s/AKfycbzrxlBcEuV7zu4ZjhrUsH3-wnoJi8_FMtjSM3KaVtYu7evAAUU7etAk7krCNJFabEyqYw/exec?request=USERDATA'
-requestUrl  = 'https://script.google.com/macros/s/AKfycbzrxlBcEuV7zu4ZjhrUsH3-wnoJi8_FMtjSM3KaVtYu7evAAUU7etAk7krCNJFabEyqYw/exec?request='
+userDataUrl = 'https://script.google.com/macros/s/AKfycbwXjRYkI7DApJIEaLKiAUV6-GOEYszHjl9fdfvGe6tpWbNZj78cO6K6s5fx7sOYLC28PA/exec?request=USERDATA'
+requestUrl  = 'https://script.google.com/macros/s/AKfycbwXjRYkI7DApJIEaLKiAUV6-GOEYszHjl9fdfvGe6tpWbNZj78cO6K6s5fx7sOYLC28PA/exec?request='
 
 let loggedIn = false
 let hasScrolled = false
+
+editing = false
+
+document.getElementById('edit-button').style.display = 'none'
+document.getElementById('edit-button').style.display = 'none'
+document.getElementById('edit-button').style.display = 'none'
+document.getElementById('edit-button').style.display = 'none'
 
 if (localStorage.getItem('username') != null) {
     document.getElementById('username').value = localStorage.getItem('username')
@@ -76,7 +83,15 @@ document.getElementById('sign-up').addEventListener('click', () => {
 })
 
 function SendMessage() {
-    if (document.getElementById('input').value == '') {
+    if (editing == true) {
+        editUrl = requestUrl + 'EDITMESSAGE&message=' + localStorage.getItem('messageid') + '&content=' + document.getElementById('input').value
+        fetch(editUrl)
+        .then(document.getElementById('input').value = '')
+        document.getElementById('send-button').style.display = 'block'
+        document.getElementById('edit-button').style.display = 'none'
+        editing = false
+        return false
+    } else if (document.getElementById('input').value == '') {
         document.getElementById('input').value = ''
         alert('Message cannot be blank')
         return false
@@ -105,9 +120,11 @@ function CreateDOMElements() {
     messageUsername.classList.add('username')
     messageUsername.classList.add('user')
     messageContent = document.createElement('p')
+    messageId = document.createElement('p')
+    messageId.classList.add('message-id')
     messageContent.classList.add('content')
-    divider = document.createElement('div')
-    divider.classList.add('divider')
+    button = document.createElement('div')
+    button.classList.add('button')
     bottom = document.createElement('div')
 }
 
@@ -118,8 +135,7 @@ function CreateDOMElementsGrayed() {
     messageUsername.classList.add('username-gray')
     messageContent = document.createElement('p')
     messageContent.classList.add('content-gray')
-    divider = document.createElement('div')
-    divider.classList.add('divider')
+    button = document.createElement('div')
     bottom = document.createElement('div')
 }
 
@@ -127,7 +143,8 @@ function DeleteDOMElements() {
     delete messageContainer
     delete messageUsername
     delete messageContent
-    delete divider
+    delete messageId
+    delete button
     delete bottom
 }
 
@@ -166,12 +183,19 @@ function UpdateThings() {
                 if (userid != json.userId[i]) {
                     messageUsername.classList.remove('user')
                 }
+
                 node = document.createTextNode(json.username[i])
+                if (json.username[i] == username) {
+                    messageContainer.appendChild(button)
+                }
                 messageUsername.appendChild(node)
                 messageContainer.appendChild(messageUsername)
                 node = document.createTextNode(json.content[i])
                 messageContent.appendChild(node)
                 messageContainer.appendChild(messageContent)
+                node = document.createTextNode(i.toString())
+                messageId.appendChild(node)
+                messageContainer.appendChild(messageId)
                 document.getElementById('messages').appendChild(messageContainer)
                 DeleteDOMElements()
 
@@ -192,11 +216,31 @@ function UpdateThings() {
 
             }
         }
+
         if (hasScrolled == false) {
             document.body.scrollTop = document.body.scrollHeight
             hasScrolled = true
         }
+
+        for (s in document.getElementsByClassName('button')) {
+            document.getElementsByClassName('button')[s].addEventListener('click', () => {
+                editing = true
+                localStorage.setItem('messageid', event.target.parentNode.children[3].textContent)
+                document.getElementById('input').value = event.target.parentNode.children[2].textContent
+                document.getElementById('send-button').style.display = 'none'
+                document.getElementById('edit-button').style.display = 'block'
+                document.getElementById('edit-button').addEventListener('click', () => {
+                    editUrl = requestUrl + 'EDITMESSAGE&message=' + localStorage.getItem('messageid') + '&content=' + document.getElementById('input').value
+                    fetch(editUrl)
+                    .then(document.getElementById('input').value = '')
+                    document.getElementById('send-button').style.display = 'block'
+                    document.getElementById('edit-button').style.display = 'none'
+                    editing = false
+                })
+            })
+        }
     })
+
     if (childLength != document.getElementById('messages').children) {
         document.body.scrollTop = document.body.scrollHeight
     }

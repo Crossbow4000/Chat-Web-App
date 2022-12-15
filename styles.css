@@ -38,6 +38,19 @@ button {
     color: rgb(51, 153, 255);
 }
 
+.button {
+    background-image: url('edit.svg');
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    right: 50px;
+    cursor: pointer;
+}
+
+.message-id {
+    display: none;
+}
+
 .content {
     font-size: 20px;
     margin-top: 5px;
