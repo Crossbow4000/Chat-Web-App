@@ -204,5 +204,5 @@ function UpdateThings() {
 UpdateThings()
 UpdateThings()
 
-setInterval(UpdateThings, 100)
+setInterval(UpdateThings, 1000)
 
