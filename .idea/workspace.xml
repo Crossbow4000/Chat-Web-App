@@ -64,4 +64,14 @@
     </state>
     <state x="929" y="25" width="573" height="1004" key="dock-window-1/0.25.1680.1025@0.25.1680.1025" timestamp="1670872656171" />
   </component>
+  <component name="regexState">
+    <option name="map">
+      <map>
+        <entry key="flags" value="0" />
+        <entry key="mode" value="0" />
+        <entry key="regex" value="(19||20)\d\d([- /.])(0[1-9]||1[012])\2(0[1-9]||[12][0-9]||3[01])" />
+        <entry key="text" value="1900-01-01 2007/08/13 1900.01.01 1900 01 01 1900-01.01 1900 13 01 1900 02 31" />
+      </map>
+    </option>
+  </component>
 </project>

@@ -182,6 +182,7 @@ function UpdateThings() {
                         if (object.children.length > 0) {
                             if (object.children[b].children[0].textContent == json.username[i] && object.children[b].children[1].textContent == json.content[i]) {
                                 object.children[b].remove()
+                                break
                             }
                         }
                     } catch {
