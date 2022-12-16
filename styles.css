@@ -40,8 +40,8 @@ button {
 
 .button {
     background-image: url('edit.svg');
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
     position: absolute;
     right: 50px;
     cursor: pointer;
