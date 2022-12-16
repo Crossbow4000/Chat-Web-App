@@ -135,7 +135,7 @@ function CreateDOMElements() {
     replyDiv.classList.add('reply-div')
     replyContainer = document.createElement('div')
     replyContainer.classList.add('reply-container')
-    replyContent = document.createElement('p')
+    replyContent = document.createElement('h3')
     replyContent.classList.add('reply-content')
     bottom = document.createElement('div')
 }
@@ -262,8 +262,16 @@ function Edit() {
         document.getElementsByClassName('button')[s].addEventListener('click', () => {
             editing = true
             replying = false
-            sessionStorage.setItem('messageid', event.target.parentNode.children[4].textContent)
-            document.getElementById('input').value = event.target.parentNode.children[3].textContent
+            for(let h in event.target.parentNode.children) {
+                if(event.target.parentNode.children[h].tagName == 'H2') {
+                    sessionStorage.setItem('messageid', event.target.parentNode.children[h].textContent)
+                }
+            }
+            for(let f in event.target.parentNode.children) {
+                if(event.target.parentNode.children[f].tagName == 'P') {
+                    document.getElementById('input').value = event.target.parentNode.children[f].textContent
+                }
+            }
             document.getElementById('input').focus()
             document.getElementById('send-button').style.display = 'none'
             document.getElementById('edit-button').style.display = 'block'
@@ -290,7 +298,6 @@ function Reply() {
             document.getElementById('reply-button').style.display = 'block'
             replying = true
             editing = false
-            document.getElementById('input').value = ''
             document.getElementById('input').focus()
 
         })

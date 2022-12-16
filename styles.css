@@ -46,16 +46,21 @@ button {
     margin-bottom: -4px;
     height: 40px;
     width: 40px;
+    grid-column: 1;
 }
 
 .reply-container {
-    display: flex;
+    margin-top: 10px;
+    display: grid;
     align-items: center;
+    grid-template-columns: 30px fit-content(1000px);
 }
 
 .reply-content {
+    text-align: left;
     color: rgb(60, 60, 60);
     font-size: 15px;
+    grid-column: 2;
 }
 
 .button {
