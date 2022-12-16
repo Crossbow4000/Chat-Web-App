@@ -256,7 +256,12 @@ function Edit() {
 function Reply() {
     for (g in document.getElementsByClassName('reply')) {
         document.getElementsByClassName('reply')[g].addEventListener('click', () => {
-            sessionStorage.setItem('reply', event.target.parentNode.children[4].textContent)
+            if(event.target.parentNode.children.length == 5) {
+                sessionStorage.setItem('reply', event.target.parentNode.children[4].textContent)
+            } else {
+                sessionStorage.setItem('reply', event.target.parentNode.children[3].textContent)
+            }
+
             console.log(localStorage.getItem('reply'))
             document.getElementById('send-button').style.display = 'none'
             document.getElementById('edit-button').style.display = 'none'
@@ -269,6 +274,7 @@ function Reply() {
         })
     }
 }
+
 
 document.getElementById('reply-button').addEventListener('click', () => {
     SendMessage()
