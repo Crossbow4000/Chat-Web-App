@@ -39,6 +39,25 @@ button {
     color: rgb(51, 153, 255);
 }
 
+.reply-div {
+    background: url('reply-arrow.svg');
+    background-repeat: no-repeat;
+    margin-top: 8px;
+    margin-bottom: -4px;
+    height: 40px;
+    width: 40px;
+}
+
+.reply-container {
+    display: flex;
+    align-items: center;
+}
+
+.reply-content {
+    color: rgb(60, 60, 60);
+    font-size: 15px;
+}
+
 .button {
     background-image: url('edit.svg');
     height: 20px;

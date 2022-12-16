@@ -124,13 +124,19 @@ function CreateDOMElements() {
     messageUsername.classList.add('username')
     messageUsername.classList.add('user')
     messageContent = document.createElement('p')
-    messageId = document.createElement('p')
+    messageId = document.createElement('h2')
     messageId.classList.add('message-id')
     messageContent.classList.add('content')
     button = document.createElement('div')
     button.classList.add('button')
     reply = document.createElement('div')
     reply.classList.add('reply')
+    replyDiv = document.createElement('div')
+    replyDiv.classList.add('reply-div')
+    replyContainer = document.createElement('div')
+    replyContainer.classList.add('reply-container')
+    replyContent = document.createElement('p')
+    replyContent.classList.add('reply-content')
     bottom = document.createElement('div')
 }
 
@@ -153,6 +159,9 @@ function DeleteDOMElements() {
     delete button
     delete bottom
     delete reply
+    delete replyDiv
+    delete replyContent
+    delete replyContainer
 }
 
 
@@ -177,7 +186,7 @@ String.prototype.hashCode = function() {
 
 function UpdateThings() {
     childLength = document.getElementById('messages').children
-    fetch('https://script.google.com/macros/s/AKfycbz87WVtorZmH6ve0zBEqSKzuX8_hpVJ27w_4SccZdv7sC66KeHEy4ycg91BmdYmxPbgLQ/exec?request=CHATDATA')
+    fetch('https://script.google.com/macros/s/AKfycbycXnD5tk4A2eWuLaAc8uxBfqnwichNqQZ-h1HH2miLvj8sMfUsYoHywP4vnFJNnn2vnQ/exec?request=CHATDATA')
     .then(response => response.json())
     .then(json => {
         while (document.getElementById('messages').lastChild) {
@@ -197,6 +206,18 @@ function UpdateThings() {
                 node = document.createTextNode(json.username[i])
                 messageUsername.appendChild(node)
                 messageContainer.appendChild(messageUsername)
+
+                if(json.reply[i] != '') {
+                    for(let d in document.getElementById('messages').children[json.reply[i]].children) {
+                        if (document.getElementById('messages').children[json.reply[i]].children[d].tagName == 'P') {
+                            replyContent.appendChild(document.createTextNode(document.getElementById('messages').children[json.reply[i]].children[d].textContent))
+                        }
+                    }
+                    replyContainer.appendChild(replyDiv)
+                    replyContainer.appendChild(replyContent)
+                    messageContainer.appendChild(replyContainer)
+                }
+
                 node = document.createTextNode(json.content[i])
                 messageContent.appendChild(node)
                 messageContainer.appendChild(messageContent)
@@ -209,6 +230,7 @@ function UpdateThings() {
                 for (b in document.getElementById('sent-messages').children) {
                     object = document.getElementById('sent-messages')
                     list = []
+
                     try {
                         if (object.children.length > 0) {
                             if (object.children[b].children[0].textContent == json.username[i] && object.children[b].children[1].textContent == json.content[i]) {
@@ -256,10 +278,10 @@ function Edit() {
 function Reply() {
     for (g in document.getElementsByClassName('reply')) {
         document.getElementsByClassName('reply')[g].addEventListener('click', () => {
-            if(event.target.parentNode.children.length == 5) {
-                sessionStorage.setItem('reply', event.target.parentNode.children[4].textContent)
-            } else {
-                sessionStorage.setItem('reply', event.target.parentNode.children[3].textContent)
+            for(let j in event.target.parentNode.children) {
+                if(event.target.parentNode.children[j].tagName == 'H2') {
+                    sessionStorage.setItem('reply', event.target.parentNode.children[j].textContent)
+                }
             }
 
             console.log(localStorage.getItem('reply'))
