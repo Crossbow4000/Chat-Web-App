@@ -231,8 +231,6 @@ function UpdateThings() {
             hasScrolled = true
         }
 
-        Reply()
-        Edit()
     })
 
     if (childLength != document.getElementById('messages').children) {
@@ -282,3 +280,5 @@ UpdateThings()
 UpdateThings()
 
 setInterval(UpdateThings, 1000)
+setInterval(Edit, 100)
+setInterval(Reply, 100)
