@@ -268,13 +268,14 @@ function Reply() {
             editing = false
             document.getElementById('input').value = ''
             document.getElementById('input').focus()
-            document.getElementById('reply-button').addEventListener('click', () => {
-                SendMessage()
-            })
+
         })
     }
 }
 
+document.getElementById('reply-button').addEventListener('click', () => {
+    SendMessage()
+})
 
 UpdateThings()
 UpdateThings()
