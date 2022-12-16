@@ -6,24 +6,25 @@ var chatData = chatRange.getValues()
 var userRange = user.getDataRange()
 var userData = userRange.getValues()
 
-
 function FormatChatData(rowData){
   var userId = []
   var username = []
   var content = []
+  var reply = []
   for (var i in rowData) {
     if (i >= 1) {
-      if (rowData[i][0] != '' || rowData[i][1] != '' || rowData[i][2] != '') {
-        userId.push(rowData[i][0])
-        username.push(rowData[i][1])
-        content.push(rowData[i][2])
-      }
+      userId.push(rowData[i][0])
+      username.push(rowData[i][1])
+      content.push(rowData[i][2])
+      reply.push(rowData[i][3])
     }
   }
+
   var chatData = {
     'userId': userId,
     'username': username,
-    'content': content
+    'content': content,
+    'reply': reply
   }
   return chatData
 }
@@ -50,33 +51,35 @@ function FormatUserData(rowData) {
 function doGet(request) {
   Logger.log(FormatUserData(userData).userId[FormatUserData(userData).userId.length-1])
   if (request.parameter.request === 'CHATDATA') {
-      return ContentService.createTextOutput(JSON.stringify(FormatChatData(chatData)));
+    return ContentService.createTextOutput(JSON.stringify(FormatChatData(chatData)));
   } else if (request.parameter.request === 'USERDATA') {
-      return ContentService.createTextOutput(JSON.stringify(FormatUserData(userData)));
+    return ContentService.createTextOutput(JSON.stringify(FormatUserData(userData)));
   } else if (request.parameter.request === 'WRITECHAT'){
-      data = FormatChatData(chatData)
-      var userIdCell = chat.getRange('A' + String(data.username.length+2))
-      userIdCell.setValue(request.parameter.userid)
-      var usernameCell = chat.getRange('B' + String(data.username.length+2))
-      usernameCell.setValue(request.parameter.username)
-      var contentCell = chat.getRange('C' + String(data.username.length+2))
-      contentCell.setValue(request.parameter.content)
-      return ContentService.createTextOutput('Sucessfully created message')
+    data = FormatChatData(chatData)
+    var userIdCell = chat.getRange('A' + String(data.username.length+2))
+    userIdCell.setValue(request.parameter.userid)
+    var usernameCell = chat.getRange('B' + String(data.username.length+2))
+    usernameCell.setValue(request.parameter.username)
+    var contentCell = chat.getRange('C' + String(data.username.length+2))
+    contentCell.setValue(request.parameter.content)
+    var replyCell = chat.getRange('D' + String(data.username.length+2))
+    replyCell.setValue(request.parameter.reply)
+    return ContentService.createTextOutput('Sucessfully created message')
   } else if (request.parameter.request === 'WRITEUSER') {
-      data = FormatUserData(userData)
-      var userIdCell = user.getRange('C' + String(data.userId.length+2))
-      userIdCell.setValue(data.userId[data.userId.length-1]+1)
-      var usernameCell = user.getRange('A' + String(data.username.length+2))
-      usernameCell.setValue(request.parameter.username)
-      var passwordCell = user.getRange('B' + String(data.password.length+2))
-      passwordCell.setValue(request.parameter.password)
-      return ContentService.createTextOutput('Sucessfully created user ' + request.parameter.username + ' with an ID of ' + request.parameter.userid + ' and a password of ' + request.parameter.password)
+    data = FormatUserData(userData)
+    var userIdCell = user.getRange('C' + String(data.userId.length+2))
+    userIdCell.setValue(data.userId[data.userId.length-1]+1)
+    var usernameCell = user.getRange('A' + String(data.username.length+2))
+    usernameCell.setValue(request.parameter.username)
+    var passwordCell = user.getRange('B' + String(data.password.length+2))
+    passwordCell.setValue(request.parameter.password)
+    return ContentService.createTextOutput('Sucessfully created user ' + request.parameter.username + ' with an ID of ' + request.parameter.userid + ' and a password of ' + request.parameter.password)
   } else if (request.parameter.request === 'EDITMESSAGE') {
-      data = FormatChatData(chatData)
-      var contentCell = chat.getRange('C' + String(Number(request.parameter.message) + 2))
-      contentCell.setValue(request.parameter.content)
+    data = FormatChatData(chatData)
+    var contentCell = chat.getRange('C' + String(Number(request.parameter.message) + 2))
+    contentCell.setValue(request.parameter.content)
   } else {
-      return ContentService.createTextOutput('Please provide a valid request');
+    return ContentService.createTextOutput('Please provide a valid request');
   }
 
 }
