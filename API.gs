@@ -78,6 +78,22 @@ function doGet(request) {
     data = FormatChatData(chatData)
     var contentCell = chat.getRange('C' + String(Number(request.parameter.message) + 2))
     contentCell.setValue(request.parameter.content)
+  } else if (request.parameter.request === 'LOGIN') {
+    data = FormatUserData(userData)
+    for(let j in data.username) {
+      if(request.parameter.username === data.username[j] && request.parameter.password === data.password[j]) {
+        userData = {
+          'username': data.username[j],
+          'userid': data.userId[j]
+        }
+        return ContentService.createTextOutput(JSON.stringify(userData))
+      }
+    }
+    userData = {
+      'username': 'Incorrect credentials',
+      'userid': '0'
+    }
+    return ContentService.createTextOutput(JSON.stringify(userData))
   } else {
     return ContentService.createTextOutput('Please provide a valid request');
   }

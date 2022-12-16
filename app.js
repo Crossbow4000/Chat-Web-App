@@ -1,5 +1,5 @@
-userDataUrl = 'https://script.google.com/macros/s/AKfycbxEynImw_4oZiibcrE_FIt-8jlC-qGedLbaX21MCwLNqzTyG-ld-ZI5WZPDKqQM2Faayw/exec?request=USERDATA'
-requestUrl  = 'https://script.google.com/macros/s/AKfycbxEynImw_4oZiibcrE_FIt-8jlC-qGedLbaX21MCwLNqzTyG-ld-ZI5WZPDKqQM2Faayw/exec?request='
+userDataUrl = 'https://script.google.com/macros/s/AKfycbwPP9_pO3mAejEE0Z6u0DsCa_bMiyqBXSDpR1NM5TMjp7ll43hJ0x5gXwfiPr16KFX5Xg/exec?request=USERDATA'
+requestUrl  = 'https://script.google.com/macros/s/AKfycbwPP9_pO3mAejEE0Z6u0DsCa_bMiyqBXSDpR1NM5TMjp7ll43hJ0x5gXwfiPr16KFX5Xg/exec?request='
 
 let loggedIn = false
 let hasScrolled = false
@@ -25,22 +25,22 @@ document.getElementById('authenticating').style.display = 'none'
 
 function Login() {
     document.getElementById('authenticating').style.display = 'block'
-    fetch(userDataUrl)
+    fetch(requestUrl + 'LOGIN&username=' + document.getElementById('username').value + '&password=' + document.getElementById('password').value.hashCode())
     .then(response => response.json())
     .then(json => {
-        for (i in json.username) {
-            if (json.username[i] == document.getElementById('username').value) {
-                if (json.password[i] == document.getElementById('password').value.hashCode()) {
-                    document.getElementById('authenticating').style.display = 'none'
-                    username = document.getElementById('username').value
-                    userid = json.userId[i]
-                    localStorage.setItem('username', username)
-                    localStorage.setItem('password', document.getElementById('password').value)
-                    document.getElementById('login-page').style.transform = 'translateY(-100%)'
-                    loggedIn = true
-                    return false
-                }
-            }
+        if(json.userid != '0') {
+            document.getElementById('authenticating').style.display = 'none'
+            username = json.username
+            userid = json.userid
+            localStorage.setItem('username', username)
+            localStorage.setItem('password', document.getElementById('password').value)
+            document.getElementById('login-page').style.transform = 'translateY(-100%)'
+            loggedIn = true
+            return false
+        } else {
+            alert('Username or password is incorrect')
+            document.getElementById('authenticating').style.display = 'none'
+            return false
         }
         alert('Username or password is incorrect')
         document.getElementById('authenticating').style.display = 'none'
@@ -220,9 +220,6 @@ function UpdateThings() {
                         continue
                     }
                 }
-
-
-
             }
         }
 
