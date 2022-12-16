@@ -11,6 +11,8 @@ document.getElementById('edit-button').style.display = 'none'
 document.getElementById('edit-button').style.display = 'none'
 document.getElementById('edit-button').style.display = 'none'
 
+document.getElementById('username').focus()
+
 if (localStorage.getItem('username') != null) {
     document.getElementById('username').value = localStorage.getItem('username')
 }
