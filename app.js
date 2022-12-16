@@ -1,5 +1,5 @@
-userDataUrl = 'https://script.google.com/macros/s/AKfycbwXjRYkI7DApJIEaLKiAUV6-GOEYszHjl9fdfvGe6tpWbNZj78cO6K6s5fx7sOYLC28PA/exec?request=USERDATA'
-requestUrl  = 'https://script.google.com/macros/s/AKfycbwXjRYkI7DApJIEaLKiAUV6-GOEYszHjl9fdfvGe6tpWbNZj78cO6K6s5fx7sOYLC28PA/exec?request='
+userDataUrl = 'https://script.google.com/macros/s/AKfycbxEynImw_4oZiibcrE_FIt-8jlC-qGedLbaX21MCwLNqzTyG-ld-ZI5WZPDKqQM2Faayw/exec?request=USERDATA'
+requestUrl  = 'https://script.google.com/macros/s/AKfycbxEynImw_4oZiibcrE_FIt-8jlC-qGedLbaX21MCwLNqzTyG-ld-ZI5WZPDKqQM2Faayw/exec?request='
 
 let loggedIn = false
 let hasScrolled = false
@@ -7,11 +7,12 @@ let hasScrolled = false
 editing = false
 
 document.getElementById('edit-button').style.display = 'none'
-document.getElementById('edit-button').style.display = 'none'
-document.getElementById('edit-button').style.display = 'none'
-document.getElementById('edit-button').style.display = 'none'
+document.getElementById('reply-button').style.display = 'none'
+
 
 document.getElementById('username').focus()
+
+sessionStorage.setItem('reply', '')
 
 if (localStorage.getItem('username') != null) {
     document.getElementById('username').value = localStorage.getItem('username')
@@ -86,7 +87,7 @@ document.getElementById('sign-up').addEventListener('click', () => {
 
 function SendMessage() {
     if (editing == true) {
-        editUrl = requestUrl + 'EDITMESSAGE&message=' + localStorage.getItem('messageid') + '&content=' + document.getElementById('input').value
+        editUrl = requestUrl + 'EDITMESSAGE&message=' + sessionStorage.getItem('messageid') + '&content=' + document.getElementById('input').value
         fetch(editUrl)
         .then(document.getElementById('input').value = '')
         document.getElementById('send-button').style.display = 'block'
@@ -98,7 +99,7 @@ function SendMessage() {
         alert('Message cannot be blank')
         return false
     } else {
-        sendMessageUrl = requestUrl + 'WRITECHAT&username=' + username + '&userid=' + userid + '&content=' + document.getElementById('input').value
+        sendMessageUrl = requestUrl + 'WRITECHAT&username=' + username + '&userid=' + userid + '&content=' + document.getElementById('input').value + '&reply=' + sessionStorage.getItem('reply')
         CreateDOMElementsGrayed()
         node = document.createTextNode(username)
         messageUsername.appendChild(node)
@@ -111,6 +112,7 @@ function SendMessage() {
         document.body.scrollTop = document.body.scrollHeight
         DeleteDOMElements()
         fetch(sendMessageUrl)
+        sessionStorage.setItem('reply', '')
         return false
     }
 }
@@ -127,6 +129,8 @@ function CreateDOMElements() {
     messageContent.classList.add('content')
     button = document.createElement('div')
     button.classList.add('button')
+    reply = document.createElement('div')
+    reply.classList.add('reply')
     bottom = document.createElement('div')
 }
 
@@ -148,6 +152,7 @@ function DeleteDOMElements() {
     delete messageId
     delete button
     delete bottom
+    delete reply
 }
 
 
@@ -185,11 +190,11 @@ function UpdateThings() {
                 if (userid != json.userId[i]) {
                     messageUsername.classList.remove('user')
                 }
-
-                node = document.createTextNode(json.username[i])
                 if (json.username[i] == username) {
                     messageContainer.appendChild(button)
                 }
+                messageContainer.appendChild(reply)
+                node = document.createTextNode(json.username[i])
                 messageUsername.appendChild(node)
                 messageContainer.appendChild(messageUsername)
                 node = document.createTextNode(json.content[i])
@@ -216,6 +221,8 @@ function UpdateThings() {
                     }
                 }
 
+
+
             }
         }
 
@@ -224,24 +231,8 @@ function UpdateThings() {
             hasScrolled = true
         }
 
-        for (s in document.getElementsByClassName('button')) {
-            document.getElementsByClassName('button')[s].addEventListener('click', () => {
-                editing = true
-                localStorage.setItem('messageid', event.target.parentNode.children[3].textContent)
-                document.getElementById('input').value = event.target.parentNode.children[2].textContent
-                document.getElementById('input').focus()
-                document.getElementById('send-button').style.display = 'none'
-                document.getElementById('edit-button').style.display = 'block'
-                document.getElementById('edit-button').addEventListener('click', () => {
-                    editUrl = requestUrl + 'EDITMESSAGE&message=' + localStorage.getItem('messageid') + '&content=' + document.getElementById('input').value
-                    fetch(editUrl)
-                    .then(document.getElementById('input').value = '')
-                    document.getElementById('send-button').style.display = 'block'
-                    document.getElementById('edit-button').style.display = 'none'
-                    editing = false
-                })
-            })
-        }
+        Reply()
+        Edit()
     })
 
     if (childLength != document.getElementById('messages').children) {
@@ -249,8 +240,45 @@ function UpdateThings() {
     }
 }
 
+function Edit() {
+    for (s in document.getElementsByClassName('button')) {
+        document.getElementsByClassName('button')[s].addEventListener('click', () => {
+            editing = true
+            replying = false
+            sessionStorage.setItem('messageid', event.target.parentNode.children[4].textContent)
+            document.getElementById('input').value = event.target.parentNode.children[3].textContent
+            document.getElementById('input').focus()
+            document.getElementById('send-button').style.display = 'none'
+            document.getElementById('edit-button').style.display = 'block'
+            document.getElementById('reply-button').style.display = 'none'
+            document.getElementById('edit-button').addEventListener('click', () => {
+                SendMessage()
+            })
+        })
+    }
+}
+
+function Reply() {
+    for (g in document.getElementsByClassName('reply')) {
+        document.getElementsByClassName('reply')[g].addEventListener('click', () => {
+            sessionStorage.setItem('reply', event.target.parentNode.children[4].textContent)
+            console.log(localStorage.getItem('reply'))
+            document.getElementById('send-button').style.display = 'none'
+            document.getElementById('edit-button').style.display = 'none'
+            document.getElementById('reply-button').style.display = 'block'
+            replying = true
+            editing = false
+            document.getElementById('input').value = ''
+            document.getElementById('input').focus()
+            document.getElementById('reply-button').addEventListener('click', () => {
+                SendMessage()
+            })
+        })
+    }
+}
+
+
 UpdateThings()
 UpdateThings()
 
 setInterval(UpdateThings, 1000)
-
