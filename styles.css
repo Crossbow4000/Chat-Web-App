@@ -42,18 +42,15 @@ button {
 .reply-div {
     background: url('reply-arrow.svg');
     background-repeat: no-repeat;
-    margin-top: 8px;
-    margin-bottom: -4px;
+    margin-top: 5px;
     height: 40px;
     width: 40px;
     grid-column: 1;
-    align-self: start;
 }
 
 .reply-container {
     margin-top: 10px;
     display: grid;
-    align-items: center;
     grid-template-columns: 30px fit-content(1000px);
 }
 
@@ -62,6 +59,7 @@ button {
     color: rgb(60, 60, 60);
     font-size: 15px;
     grid-column: 2;
+    margin-top: 12px;
 }
 
 .button {
