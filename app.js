@@ -61,25 +61,17 @@ document.getElementById('sign-up').addEventListener('click', () => {
         return false
     }
 
-    fetch(userDataUrl)
+    fetch(requestUrl + 'SIGNUP&username=' + document.getElementById('username').value + '&password=' + document.getElementById('password').value.hashCode().toString())
     .then(response => response.json())
     .then(json => {
-        if (json.username.includes(document.getElementById('username').value)) {
+        if(json != '') {
+            alert(json)
             document.getElementById('authenticating').style.display = 'none'
-            alert('Username already taken')
             return false
         } else {
-            signUpUrl = requestUrl + 'WRITEUSER&username=' + document.getElementById('username').value + '&password=' + document.getElementById('password').value.hashCode().toString()
-            fetch(requestUrl + 'USERDATA')
-            .then(response => response.json)
-            .then(json => {
-                fetch(requestUrl + 'USERDATA')
-                .then(response => response.json)
-                .then(json => {
-                    Login()
-                })
-            })
-
+            Login()
+            document.getElementById('authenticating').style.display = 'none'
+            return false
         }
     })
 })
