@@ -47,6 +47,7 @@ button {
     height: 40px;
     width: 40px;
     grid-column: 1;
+    align-self: start;
 }
 
 .reply-container {
