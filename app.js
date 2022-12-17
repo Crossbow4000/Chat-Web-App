@@ -207,11 +207,7 @@ function UpdateThings() {
                 messageContainer.appendChild(messageUsername)
 
                 if(json.reply[i] != '') {
-                    for(let d in document.getElementById('messages').children[json.reply[i]].children) {
-                        if (document.getElementById('messages').children[json.reply[i]].children[d].tagName == 'P') {
-                            replyContent.appendChild(document.createTextNode(document.getElementById('messages').children[json.reply[i]].children[d].textContent))
-                        }
-                    }
+                    replyContent.appendChild(document.createTextNode(json.reply[i]))
                     replyContainer.appendChild(replyDiv)
                     replyContainer.appendChild(replyContent)
                     messageContainer.appendChild(replyContainer)
@@ -286,7 +282,7 @@ function Reply() {
     for (g in document.getElementsByClassName('reply')) {
         document.getElementsByClassName('reply')[g].addEventListener('click', () => {
             for(let j in event.target.parentNode.children) {
-                if(event.target.parentNode.children[j].tagName == 'H2') {
+                if(event.target.parentNode.children[j].tagName == 'P') {
                     sessionStorage.setItem('reply', event.target.parentNode.children[j].textContent)
                 }
             }
