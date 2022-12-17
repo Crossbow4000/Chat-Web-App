@@ -94,6 +94,21 @@ function doGet(request) {
       'userid': '0'
     }
     return ContentService.createTextOutput(JSON.stringify(userData))
+  } else if(request.parameter.request === 'SIGNUP') {
+      data = FormatUserData(userData)
+      if(data.username.includes(request.parameter.username)) {
+        message = 'Username already taken'
+        return ContentService.createTextOutput(JSON.stringify(message))
+      } else {
+        var userIdCell = user.getRange('C' + String(data.userId.length+2))
+        userIdCell.setValue(data.userId[data.userId.length-1]+1)
+        var usernameCell = user.getRange('A' + String(data.username.length+2))
+        usernameCell.setValue(request.parameter.username)
+        var passwordCell = user.getRange('B' + String(data.password.length+2))
+        passwordCell.setValue(request.parameter.password)
+        message = ''
+        return ContentService.createTextOutput(JSON.stringify(message))
+      }
   } else {
     return ContentService.createTextOutput('Please provide a valid request');
   }
