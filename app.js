@@ -34,6 +34,10 @@ function Login() {
             localStorage.setItem('username', username)
             localStorage.setItem('password', document.getElementById('password').value)
             document.getElementById('login-page').style.transform = 'translateY(-100%)'
+            document.getElementById('login-1').style.transform = 'translateY(-100%)'
+            document.getElementById('login-2').style.transform = 'translateY(-100%)'
+            document.getElementById('login-3').style.transform = 'translateY(-100%)'
+            document.getElementById('login-4').style.transform = 'translateY(-100%)'
             loggedIn = true
             return false
         } else {
@@ -58,6 +62,14 @@ document.getElementById('sign-up').addEventListener('click', () => {
     } else if (document.getElementById('password').value == '') {
         document.getElementById('authenticating').style.display = 'none'
         alert('Password cannot be blank')
+        return false
+    } else if (document.getElementById('username').value.length <= 5) {
+        document.getElementById('authenticating').style.display = 'none'
+        alert('Username must be longer than 5 characters')
+        return false
+    } else if (document.getElementById('password').value.length <= 5) {
+        document.getElementById('authenticating').style.display = 'none'
+        alert('Password must be longer than 5 characters')
         return false
     }
 
