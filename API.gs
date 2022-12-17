@@ -84,7 +84,7 @@ function doGet(request) {
       if(request.parameter.username === data.username[j] && request.parameter.password === data.password[j]) {
         userData = {
           'username': data.username[j],
-          'userid': data.userId[j]
+          'userid': String(data.userId[j])
         }
         return ContentService.createTextOutput(JSON.stringify(userData))
       }

@@ -1,4 +1,3 @@
-userDataUrl = 'https://script.google.com/macros/s/AKfycbwPP9_pO3mAejEE0Z6u0DsCa_bMiyqBXSDpR1NM5TMjp7ll43hJ0x5gXwfiPr16KFX5Xg/exec?request=USERDATA'
 requestUrl  = 'https://script.google.com/macros/s/AKfycbwPP9_pO3mAejEE0Z6u0DsCa_bMiyqBXSDpR1NM5TMjp7ll43hJ0x5gXwfiPr16KFX5Xg/exec?request='
 
 let loggedIn = false
@@ -71,10 +70,10 @@ document.getElementById('sign-up').addEventListener('click', () => {
             return false
         } else {
             signUpUrl = requestUrl + 'WRITEUSER&username=' + document.getElementById('username').value + '&password=' + document.getElementById('password').value.hashCode().toString()
-            fetch(signUpUrl)
+            fetch(requestUrl + 'USERDATA')
             .then(response => response.json)
             .then(json => {
-                fetch(userDataUrl)
+                fetch(requestUrl + 'USERDATA')
                 .then(response => response.json)
                 .then(json => {
                     Login()
@@ -186,7 +185,7 @@ String.prototype.hashCode = function() {
 
 function UpdateThings() {
     childLength = document.getElementById('messages').children
-    fetch('https://script.google.com/macros/s/AKfycbycXnD5tk4A2eWuLaAc8uxBfqnwichNqQZ-h1HH2miLvj8sMfUsYoHywP4vnFJNnn2vnQ/exec?request=CHATDATA')
+    fetch(requestUrl + 'CHATDATA')
     .then(response => response.json())
     .then(json => {
         while (document.getElementById('messages').lastChild) {
