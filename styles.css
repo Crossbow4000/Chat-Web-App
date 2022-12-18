@@ -11,6 +11,7 @@
 
 body {
     background: rgb(30, 30, 30);
+    z-index: -999999999;
 }
 
 button {
@@ -70,6 +71,19 @@ svg rect {
     padding-left: 10px;
     padding-bottom: 3px;
     padding-right: 3px;
+    transition: 200ms ease-in-out;
+}
+
+.un-toggle:hover {
+    background: var(--accent-color);
+}
+
+.un-toggle svg rect {
+    transition: 200ms ease-in-out;
+}
+
+.un-toggle:hover rect {
+    fill: white;
 }
 
 .message {
