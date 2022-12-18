@@ -36,7 +36,11 @@ button {
     cursor: pointer;
 }
 
-.menu-toggle svg rect {
+svg {
+    cursor: pointer;
+}
+
+svg rect {
     fill: rgb(200, 200, 200);
     transition: 200ms ease-in-out;
 }
@@ -54,6 +58,12 @@ button {
     background: rgb(20, 20, 20);
     transition: 1000ms ease-in-out;
     z-index: 4;
+}
+
+.un-toggle {
+    position: absolute;
+    top: 57px;
+    right: 57px;
 }
 
 .message {

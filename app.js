@@ -315,6 +315,11 @@ document.getElementById('menu-toggle').addEventListener('click', () => {
     document.getElementById('menu').style.transform = 'translateX(0%)'
 })
 
+document.getElementById('un-toggle').addEventListener('click', () => {
+    document.getElementById('menu-toggle').style.transform = 'translateX(0%)'
+    document.getElementById('menu').style.transform = 'translateX(100%)'
+})
+
 UpdateThings()
 UpdateThings()
 
