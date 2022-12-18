@@ -61,9 +61,15 @@ svg rect {
 }
 
 .un-toggle {
+    background: rgb(30, 30, 30);
+    border-radius: 0.2em;
     position: absolute;
-    top: 57px;
-    right: 57px;
+    top: 50px;
+    right: 50px;
+    padding-top: 7px;
+    padding-left: 10px;
+    padding-bottom: 3px;
+    padding-right: 3px;
 }
 
 .message {
