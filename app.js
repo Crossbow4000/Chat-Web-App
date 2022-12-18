@@ -11,6 +11,8 @@ document.getElementById('reply-button').style.display = 'none'
 
 document.getElementById('username').focus()
 
+document.getElementById('menu').style.transform = 'translateX(100%)'
+
 sessionStorage.setItem('reply', '')
 
 if (localStorage.getItem('username') != null) {
@@ -306,6 +308,11 @@ function Reply() {
 
 document.getElementById('reply-button').addEventListener('click', () => {
     SendMessage()
+})
+
+document.getElementById('menu-toggle').addEventListener('click', () => {
+    document.getElementById('menu-toggle').style.transform = 'translateX(200%)'
+    document.getElementById('menu').style.transform = 'translateX(0%)'
 })
 
 UpdateThings()
