@@ -118,6 +118,26 @@ svg rect {
     cursor: pointer;
 }
 
+.statistics {
+    display: flex;
+    padding-top: 50px;
+    gap: 30px;
+}
+
+.statistics div h5 {
+    color: rgb(80, 80, 80);
+}
+
+.statistics-messages {
+    text-align: center;
+}
+.statistics-edits {
+    text-align: center;
+}
+.statistics-replies {
+    text-align: center;
+}
+
 .color-selector {
     cursor: pointer;
     width: 30px;

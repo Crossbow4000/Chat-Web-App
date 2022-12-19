@@ -144,7 +144,6 @@ function Login() {
         document.getElementById('authenticating').style.display = 'none'
         return false
     })
-
     return false
 }
 
@@ -185,7 +184,7 @@ document.getElementById('sign-up').addEventListener('click', () => {
 
 function SendMessage() {
     if (editing == true) {
-        editUrl = requestUrl + 'EDITMESSAGE&message=' + sessionStorage.getItem('messageid') + '&content=' + document.getElementById('input').value
+        editUrl = requestUrl + 'EDITMESSAGE&message=' + sessionStorage.getItem('messageid') + '&content=' + document.getElementById('input').value + '&userid=' + userid.toString()
         fetch(editUrl)
         .then(document.getElementById('input').value = '')
         document.getElementById('send-button').style.display = 'block'
@@ -345,6 +344,17 @@ function UpdateThings() {
         }
 
     })
+
+    if(loggedIn) {
+        fetch(requestUrl + 'REQUESTUSER&userid=' + userid)
+        .then(response => response.json())
+        .then(json => {
+            document.getElementById('statistics-messages').textContent = json.messages
+            document.getElementById('statistics-edits').textContent = json.edits
+            document.getElementById('statistics-replies').textContent = json.replies
+        })
+    }
+
 
     if (childLength != document.getElementById('messages').children) {
         document.body.scrollTop = document.body.scrollHeight
