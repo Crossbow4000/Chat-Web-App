@@ -36,10 +36,6 @@ function Login() {
             localStorage.setItem('username', username)
             localStorage.setItem('password', document.getElementById('password').value)
             document.getElementById('login-page').style.transform = 'translateY(-100%)'
-            document.getElementById('login-1').style.transform = 'translateY(-100%)'
-            document.getElementById('login-2').style.transform = 'translateY(-100%)'
-            document.getElementById('login-3').style.transform = 'translateY(-100%)'
-            document.getElementById('login-4').style.transform = 'translateY(-100%)'
             loggedIn = true
             return false
         } else {
