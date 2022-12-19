@@ -8,6 +8,7 @@ editing = false
 document.getElementById('edit-button').style.display = 'none'
 document.getElementById('reply-button').style.display = 'none'
 
+root = document.querySelector(':root')
 
 document.getElementById('username').focus()
 
@@ -21,6 +22,98 @@ if (localStorage.getItem('username') != null) {
 if (localStorage.getItem('password') != null) {
     document.getElementById('password').value = localStorage.getItem('password')
 }
+
+
+if(localStorage.getItem('color') == 'blue') {
+    document.getElementById('color-blue').children[1].style.opacity = '1'
+    document.getElementById('color-red').children[1].style.opacity = '0'
+    document.getElementById('color-green').children[1].style.opacity = '0'
+    document.getElementById('color-yellow').children[1].style.opacity = '0'
+    document.getElementById('color-purple').children[1].style.opacity = '0'
+    root.style.setProperty('--accent-color', 'rgb(50, 150, 255')
+} else if(localStorage.getItem('color') == 'red') {
+    document.getElementById('color-blue').children[1].style.opacity = '0'
+    document.getElementById('color-red').children[1].style.opacity = '1'
+    document.getElementById('color-green').children[1].style.opacity = '0'
+    document.getElementById('color-yellow').children[1].style.opacity = '0'
+    document.getElementById('color-purple').children[1].style.opacity = '0'
+    root.style.setProperty('--accent-color', 'rgb(255, 50, 50')
+} else if(localStorage.getItem('color') == 'green') {
+    document.getElementById('color-blue').children[1].style.opacity = '0'
+    document.getElementById('color-red').children[1].style.opacity = '0'
+    document.getElementById('color-green').children[1].style.opacity = '1'
+    document.getElementById('color-yellow').children[1].style.opacity = '0'
+    document.getElementById('color-purple').children[1].style.opacity = '0'
+    root.style.setProperty('--accent-color', 'rgb(50, 255, 150')
+} else if(localStorage.getItem('color') =='yellow') {
+    document.getElementById('color-blue').children[1].style.opacity = '0'
+    document.getElementById('color-red').children[1].style.opacity = '0'
+    document.getElementById('color-green').children[1].style.opacity = '0'
+    document.getElementById('color-yellow').children[1].style.opacity = '1'
+    document.getElementById('color-purple').children[1].style.opacity = '0'
+    root.style.setProperty('--accent-color', 'rgb(230, 230, 50')
+} else if(localStorage.getItem('color') == 'purple') {
+    document.getElementById('color-blue').children[1].style.opacity = '0'
+    document.getElementById('color-red').children[1].style.opacity = '0'
+    document.getElementById('color-green').children[1].style.opacity = '0'
+    document.getElementById('color-yellow').children[1].style.opacity = '0'
+    document.getElementById('color-purple').children[1].style.opacity = '1'
+    root.style.setProperty('--accent-color', 'rgb(230, 50, 230')
+} else {
+    localStorage.setItem('color', 'blue')
+    document.getElementById('color-blue').children[1].style.opacity = '1'
+    document.getElementById('color-red').children[1].style.opacity = '0'
+    document.getElementById('color-green').children[1].style.opacity = '0'
+    document.getElementById('color-yellow').children[1].style.opacity = '0'
+    document.getElementById('color-purple').children[1].style.opacity = '0'
+    root.style.setProperty('--accent-color', 'rgb(50, 150, 255')
+}
+
+document.getElementById('color-blue').addEventListener('click', () => {
+    localStorage.setItem('color', 'blue')
+    document.getElementById('color-blue').children[1].style.opacity = '1'
+    document.getElementById('color-red').children[1].style.opacity = '0'
+    document.getElementById('color-green').children[1].style.opacity = '0'
+    document.getElementById('color-yellow').children[1].style.opacity = '0'
+    document.getElementById('color-purple').children[1].style.opacity = '0'
+    root.style.setProperty('--accent-color', 'rgb(50, 150, 255')
+})
+document.getElementById('color-red').addEventListener('click', () => {
+    localStorage.setItem('color', 'red')
+    document.getElementById('color-blue').children[1].style.opacity = '0'
+    document.getElementById('color-red').children[1].style.opacity = '1'
+    document.getElementById('color-green').children[1].style.opacity = '0'
+    document.getElementById('color-yellow').children[1].style.opacity = '0'
+    document.getElementById('color-purple').children[1].style.opacity = '0'
+    root.style.setProperty('--accent-color', 'rgb(255, 50, 50')
+})
+document.getElementById('color-green').addEventListener('click', () => {
+    localStorage.setItem('color', 'green')
+    document.getElementById('color-blue').children[1].style.opacity = '0'
+    document.getElementById('color-red').children[1].style.opacity = '0'
+    document.getElementById('color-green').children[1].style.opacity = '1'
+    document.getElementById('color-yellow').children[1].style.opacity = '0'
+    document.getElementById('color-purple').children[1].style.opacity = '0'
+    root.style.setProperty('--accent-color', 'rgb(50, 255, 150')
+})
+document.getElementById('color-yellow').addEventListener('click', () => {
+    localStorage.setItem('color', 'yellow')
+    document.getElementById('color-blue').children[1].style.opacity = '0'
+    document.getElementById('color-red').children[1].style.opacity = '0'
+    document.getElementById('color-green').children[1].style.opacity = '0'
+    document.getElementById('color-yellow').children[1].style.opacity = '1'
+    document.getElementById('color-purple').children[1].style.opacity = '0'
+    root.style.setProperty('--accent-color', 'rgb(230, 230, 50')
+})
+document.getElementById('color-purple').addEventListener('click', () => {
+    localStorage.setItem('color', 'purple')
+    document.getElementById('color-blue').children[1].style.opacity = '0'
+    document.getElementById('color-red').children[1].style.opacity = '0'
+    document.getElementById('color-green').children[1].style.opacity = '0'
+    document.getElementById('color-yellow').children[1].style.opacity = '0'
+    document.getElementById('color-purple').children[1].style.opacity = '1'
+    root.style.setProperty('--accent-color', 'rgb(230, 50, 230')
+})
 
 document.getElementById('authenticating').style.display = 'none'
 
