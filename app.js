@@ -16,17 +16,16 @@ document.getElementById('menu').style.transform = 'translateX(100%)'
 
 let flip = false
 
+if (localStorage.getItem('username') != null) {
+    document.getElementById('username').value = localStorage.getItem('username')
+    if (localStorage.getItem('password') != null) {
+        document.getElementById('password').value = localStorage.getItem('password')
+    }
+}
+
 document.getElementById('account-info-password').textContent = 'Show Password'
 
 sessionStorage.setItem('reply', '')
-
-if (localStorage.getItem('username') != null) {
-    document.getElementById('username').value = localStorage.getItem('username')
-}
-if (localStorage.getItem('password') != null) {
-    document.getElementById('password').value = localStorage.getItem('password')
-}
-
 
 if(localStorage.getItem('color') == 'blue') {
     document.getElementById('color-blue').children[1].style.opacity = '1'
