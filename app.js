@@ -14,6 +14,10 @@ document.getElementById('username').focus()
 
 document.getElementById('menu').style.transform = 'translateX(100%)'
 
+let flip = false
+
+document.getElementById('account-info-password').textContent = 'Show Password'
+
 sessionStorage.setItem('reply', '')
 
 if (localStorage.getItem('username') != null) {
@@ -128,6 +132,7 @@ function Login() {
             userid = json.userid
             localStorage.setItem('username', username)
             localStorage.setItem('password', document.getElementById('password').value)
+            document.getElementById('account-info-username').textContent = username
             document.getElementById('login-page').style.transform = 'translateY(-100%)'
             loggedIn = true
             return false
@@ -408,6 +413,20 @@ document.getElementById('un-toggle').addEventListener('click', () => {
     document.getElementById('menu-toggle').style.transform = 'translateX(0%)'
     document.getElementById('menu').style.transform = 'translateX(100%)'
 })
+
+document.getElementById('account-info-password').addEventListener('click', () => {
+    if(flip == false) {
+        document.getElementById('account-info-password').style.color = 'rgb(200, 200, 200)'
+        document.getElementById('account-info-password').textContent = localStorage.getItem('password')
+        flip = true
+    } else {
+        document.getElementById('account-info-password').style.color = 'rgb(150, 150, 150)'
+        document.getElementById('account-info-password').textContent = 'Show Password'
+        flip = false
+    }
+})
+
+
 
 UpdateThings()
 UpdateThings()

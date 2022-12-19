@@ -19,6 +19,15 @@ button {
     cursor: pointer;
 }
 
+.no-select {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+}
+
 .menu-toggle {
     position: fixed;
     top: 50px;
@@ -95,7 +104,18 @@ svg rect {
     padding: 50px;
     display: flex;
     gap: 25px;
-    grid-row: 2;
+    grid-row: 3;
+}
+
+.account-detail-title {
+    color: rgb(80, 80, 80);
+    margin-top: 50px;
+    justify-self: left;
+}
+
+#account-info-password {
+    color: rgb(150, 150, 150);
+    cursor: pointer;
 }
 
 .color-selector {
@@ -104,6 +124,7 @@ svg rect {
     height: 30px;
     border-radius: 50%;
     z-index: 20;
+    margin-top: -300px;
 }
 
 #color-blue {
@@ -280,6 +301,7 @@ svg rect {
     border-radius: 0.2em;
 }
 .send-button:hover { background: var(--accent-color); color: white; }
+
 
 .login {
     display: grid;
