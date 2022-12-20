@@ -10,6 +10,8 @@ document.getElementById('reply-button').style.display = 'none'
 
 root = document.querySelector(':root')
 
+document.getElementById('account-info-password').textContent = localStorage.getItem('password')
+
 document.getElementById('username').focus()
 
 document.getElementById('menu').style.transform = 'translateX(100%)'
@@ -22,8 +24,6 @@ if (localStorage.getItem('username') != null) {
         document.getElementById('password').value = localStorage.getItem('password')
     }
 }
-
-document.getElementById('account-info-password').textContent = 'Show Password'
 
 sessionStorage.setItem('reply', '')
 
@@ -426,11 +426,11 @@ document.getElementById('un-toggle').addEventListener('click', () => {
 document.getElementById('account-info-password').addEventListener('click', () => {
     if(flip == false) {
         document.getElementById('account-info-password').style.color = 'rgb(200, 200, 200)'
-        document.getElementById('account-info-password').textContent = localStorage.getItem('password')
+        document.getElementById('account-info-password').style.background = 'none'
         flip = true
     } else {
-        document.getElementById('account-info-password').style.color = 'rgb(150, 150, 150)'
-        document.getElementById('account-info-password').textContent = 'Show Password'
+        document.getElementById('account-info-password').style.color = 'rgb(35, 35, 35)'
+        document.getElementById('account-info-password').style.background = 'rgb(35, 35, 35)'
         flip = false
     }
 })

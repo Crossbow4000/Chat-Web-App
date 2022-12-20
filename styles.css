@@ -114,8 +114,13 @@ svg rect {
 }
 
 #account-info-password {
-    color: rgb(150, 150, 150);
+    width: fit-content;
+    block-size: fit-content;
+    color: rgb(35, 35, 35);
     cursor: pointer;
+    background: rgb(35, 35, 35);
+    border-radius: 0.2rem;
+    padding: 5px;
 }
 
 .statistics {
