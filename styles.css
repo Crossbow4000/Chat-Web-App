@@ -121,6 +121,7 @@ svg rect {
     background: rgb(35, 35, 35);
     border-radius: 0.2rem;
     padding: 5px;
+    transition: 100ms ease-in-out;
 }
 
 .statistics {
