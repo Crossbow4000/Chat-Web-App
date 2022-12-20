@@ -133,6 +133,7 @@ function Login() {
             localStorage.setItem('password', document.getElementById('password').value)
             document.getElementById('account-info-username').textContent = username
             document.getElementById('login-page').style.transform = 'translateY(-100%)'
+            document.getElementById('account-info-userid').textContent = userid
             loggedIn = true
             return false
         } else {
@@ -426,7 +427,7 @@ document.getElementById('un-toggle').addEventListener('click', () => {
 document.getElementById('account-info-password').addEventListener('click', () => {
     if(flip == false) {
         document.getElementById('account-info-password').style.color = 'rgb(200, 200, 200)'
-        document.getElementById('account-info-password').style.background = 'none'
+        document.getElementById('account-info-password').style.background = 'rgb(26, 26, 26)'
         flip = true
     } else {
         document.getElementById('account-info-password').style.color = 'rgb(35, 35, 35)'
